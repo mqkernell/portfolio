@@ -47,6 +47,15 @@ body {
     width: 40%;
   }
 
+
+  .project-container {
+    opacity: 0.5;
+    transition: opacity 333ms ease; 
+  }
+  .project-container.active {
+    opacity: 1;
+  }
+
   .project-detail {
     position: absolute;
     top: 0;
