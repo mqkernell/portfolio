@@ -15,22 +15,24 @@
 
     <!-- import the webpage's javascript file -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./data.js"></script>
     <script src="./index.js"></script>
   </head>
   <body>
     <!--sidebar-->
     <div class="container-fluid">
-      <div class="row content">
-        <div class="custom-nav col-sm-3 sidenav">
-          <nav class="navbar-custom">
-            <div class="container-fluid">
-              <ul class="nav navbar-nav">
-                <li><a href="#">HOME</a></li>
-                <li><a href="#">ABOUT</a></li>
-                <li><a href="#">CONNECT</a></li>
-              </ul>
-            </div>
-          </nav>
+      <div class="row">
+        <nav class="navbar-custom">
+          <div class="container-fluid">
+            <ul class="nav navbar-nav">
+              <li><a href="./index.html">HOME</a></li>
+              <li><a href="./about.html">ABOUT</a></li>
+              <li><a href="./connect.html">CONNECT</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        <section class="buttons-section main-section custom-nav col-sm-3 sidenav"  id="buttons">
           <div class="year-button">
             <button type="button" class="btn btn-default btn-m">2017</button>
             <button type="button" class="btn btn-default btn-m">2018</button>
@@ -58,11 +60,15 @@
             - - - - - - -
             <br />
           </div>
-        </div>
+        </section>
 
-        <div class="col-sm-8">
-         
-        </div>
+        <section class="projects-section main-section col-bg-3" id="projects"></section>
+
+        <section class="project-detail" id="project-detail">
+          <button class="close-button" id='detail-close-button'>X</button>
+          <div class="project-images" id="detail-images"></div>
+          <div class="project-description" id="detail-description"></div>
+        </section>
       </div>
     </div>
 
