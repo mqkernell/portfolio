@@ -15,15 +15,15 @@ let projects = [
           "src": "library_jpeg1.jpg",
           "alt": "alt title"
         },
-        // {
-        //   "src": "",
-        //   "alt": ""
-        // }
+        {
+          "src": "library_jpeg2.jpg",
+          "alt": ""
+        }
       ]
     },
 
     {
-      "name": "3 billion people travel to st. louis, mo, to mourn the loss of 2 victims of capitalism",
+      "name": "birds",
       "image_base": "birds",
       "medium": "photography",
       "tags": [
@@ -56,14 +56,15 @@ let projects = [
       "date": "2019",
       "recognition": "",
       "images": [
-        // {
-        //   "src": "photo1.png",
-        //   "alt": "alt title"
-        // },
-        // {
-        //   "src": "",
-        //   "alt": ""
-        // }
+        {
+          "is_cover": true,
+          "src": "roadside_memorials_1.jpg",
+          "alt": "alt title"
+        },
+        {
+          "src": "roadside_memorials_2.jpg",
+          "alt": ""
+        }
       ]
     },
 
@@ -122,11 +123,33 @@ let projects = [
       "images": [
         {
           "is_cover": true,
-          "src": "nhm_1.jpeg",
+          "src": "nhm_1.jpg",
           "alt": "alt title"
         },
         {
-          "src": "nhm_2.jpeg",
+          "src": "nhm_2.jpg",
+          "alt": ""
+        }
+      ]
+    }
+
+    {
+      "name": "pruitt igoe",
+      "image_base": "pruitt_igoe",
+      "medium": "photography",
+      "tags": [
+        "food-apartheid",
+      ],
+      "date": "2019",
+      "recognition": "",
+      "images": [
+        {
+          "is_cover": true,
+          "src": "pruitt_igoe_1.jpg",
+          "alt": "alt title"
+        },
+        {
+          "src": "pruitt_igoe_2.jpg",
           "alt": ""
         }
       ]
