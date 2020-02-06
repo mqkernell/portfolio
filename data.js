@@ -12,13 +12,13 @@ let projects = [
       "images": [
         {
           "is_cover": true, 
-          "src": "photo1.png",
+          "src": "library_jpeg1.jpg",
           "alt": "alt title"
         },
-        {
-          "src": "",
-          "alt": ""
-        }
+        // {
+        //   "src": "",
+        //   "alt": ""
+        // }
       ]
     },
 
@@ -35,7 +35,8 @@ let projects = [
       "recognition": "",
       "images": [
         {
-          "src": "bird1.jpeg",
+          "is_cover": true,
+          "src": "bird1.jpg",
           "alt": "alt title"
         },
         {
@@ -55,14 +56,14 @@ let projects = [
       "date": "2019",
       "recognition": "",
       "images": [
-        {
-          "src": "photo1.png",
-          "alt": "alt title"
-        },
-        {
-          "src": "",
-          "alt": ""
-        }
+        // {
+        //   "src": "photo1.png",
+        //   "alt": "alt title"
+        // },
+        // {
+        //   "src": "",
+        //   "alt": ""
+        // }
       ]
     },
 
@@ -77,17 +78,16 @@ let projects = [
       "date": "2019",
       "recognition": "",
       "images": [
-        {
-          "src": "photo1.png",
-          "alt": "alt title"
-        },
-        {
-          "src": "",
-          "alt": ""
-        }
+        // {
+        //   "src": "photo1.png",
+        //   "alt": "alt title"
+        // },
+        // {
+        //   "src": "",
+        //   "alt": ""
+        // }
       ]
-    }
-
+    },
     {
       "name": "unnatural nature",
       "image_base": "unnatural_nature",
@@ -99,14 +99,14 @@ let projects = [
       "date": "2020",
       "recognition": "",
       "images": [
-        {
-          "src": "photo1.png",
-          "alt": "alt title"
-        },
-        {
-          "src": "",
-          "alt": ""
-        }
+        // {
+        //   "src": "photo1.png",
+        //   "alt": "alt title"
+        // },
+        // {
+        //   "src": "",
+        //   "alt": ""
+        // }
       ]
     },
 
