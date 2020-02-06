@@ -14,23 +14,18 @@ for(var cat in buttonCategories) {
     activeFilters[cat] = []; 
 }
 
-$().ready(function() {
-    $projectOverlay     = $('#project-detail');
-    $detailCloseButton  = $('#detail-close-button');
-    $detailImages       = $('#detail-images');
-    $detailDescription  = $('#detail-description');
+$().ready(Main);
 
-    $detailCloseButton.click(closeProjectOverlay); 
-    
+function Main() {
+    let overlayController = new OverlayController(); 
+
+    console.log(this.overlayController)
     addFilterButtons(buttonCategories); 
-    addProjects(); 
-});
-
-
-/**
- * 
- */
-function addProjects() {
+    
+    
+    /**
+     *  Add Projects
+     */
     let $projectSection = $('#projects');
     
     projects.forEach(function(project) {
@@ -40,7 +35,7 @@ function addProjects() {
         });
         
         $projectContainer.click(function() {
-            addProjectOverlay(project); 
+            overlayController.openProject(project); 
         });
         
         let coverImage = project.images.filter(function(img) {
@@ -58,37 +53,40 @@ function addProjects() {
     });
 }
 
-/** 
- * 
- */
-function onCategoryButtonClick(category, value) {
-
-}
-
-/** 
- * 
- */
-function filterImages() {
-    
-}
 
 /**
  * 
- * @param {*} project 
+ ******************************************************
+ * 
+ *  Controller for the project overlay
+ * 
+ * 
  */
-function addProjectOverlay(project) {
-    // console.log(project); 
+function OverlayController() {
+    let self = this; 
+    this.$containerEl   = $('#project-detail-container');
+    this.$imagesEl      = $('#detail-images');
+    this.$titleEl       = $('#detail-title');
+    this.$descriptionEl = $('#detail-description');
+    let $closeButton    = $('#detail-close-button');
 
-    // Clear images and description
-    $detailImages.empty(); 
-    $detailDescription.empty(); 
+    // Hide
+    $closeButton.click(function() {
+        self.hide();
+    });   
+}
 
-    // Show overlay
-    $projectOverlay.addClass('active'); 
 
+/**
+ * 
+ */
+OverlayController.prototype.openProject = function(project) {
+    this.clear();  
+    this.$project = $(project);
+    
     // Add images
     project.images.forEach(img => {
-        $detailImages.append($('<img />', { 
+        this.$imagesEl.append($('<img />', { 
             class: "detail-image", 
             src: './assets/' + project.image_base + "/" + img.src,
             alt: img.alt || '', 
@@ -96,24 +94,52 @@ function addProjectOverlay(project) {
     })
 
     // Add project description
-    $detailDescription.text(project.description);
-}
-
-
-/**
- * 
- */
-function closeProjectOverlay() {
-    $projectOverlay.removeClass('active'); 
+    this.$titleEl.text(project.name); 
+    this.$descriptionEl.text(project.description);
+    this.show();  
 }
 
 /**
  * 
  */
-function unique(array) {
-    return $.grep(array, function(el, index) {
-        return index === $.inArray(el, array);
-    });
+OverlayController.prototype.clear = function() {
+    this.$titleEl.empty(); 
+    this.$imagesEl.empty();
+    this.$descriptionEl.empty(); 
+}
+
+/**
+ * 
+ */
+OverlayController.prototype.show = function() {
+    this.$containerEl.addClass('active');
+}
+
+/**
+ * 
+ */
+OverlayController.prototype.hide = function() {
+    this.$containerEl.removeClass('active');
+}
+
+
+
+
+/**
+ * 
+ ******************************************************
+ * 
+ *  Conteroller for the filter buttons 
+ * 
+ * 
+ */
+function FilterController() {
+    let self = this; 
+
+}
+
+FilterController.prototype.clearFilters = function() {
+    activeFilters = {};
 }
 
 /**
@@ -216,7 +242,6 @@ function filterImages() {
     $projectSection.children('.project-container').get().forEach(project => {
         $project = $(project); 
         let shouldBeActive = projectShouldBeActive($project.data(), activeFilters); 
-        console.log(shouldBeActive);
         if(shouldBeActive) {
             $project.addClass('active'); 
         } else {
@@ -229,12 +254,10 @@ function filterImages() {
  * 
  */
 function projectShouldBeActive(projectFilters, activeFilters) {
-    // console.log(projectFilters);
-    // console.log(activeFilters);
     let active = true; 
     for(let cat in activeFilters) {
         activeFilters[cat].forEach(function(val) {
-            console.log(val, projectFilters[cat], $.inArray(val, projectFilters[cat]));
+            // console.log(val, projectFilters[cat], $.inArray(val, projectFilters[cat]));
 
             if($.inArray(val, projectFilters[cat]) < 0) {
                 active = false; 
@@ -244,10 +267,12 @@ function projectShouldBeActive(projectFilters, activeFilters) {
     return active; 
 }
 
+
 /**
  * 
  */
-function clearFilters() {
-    this.activeFilters = {};
+function unique(array) {
+    return $.grep(array, function(el, index) {
+        return index === $.inArray(el, array);
+    });
 }
-
