@@ -1,0 +1,32 @@
+
+body {
+    font-family: helvetica, arial, sans-serif;
+    margin: 2em;
+    padding-top: 2em;
+  }
+  
+  h1 {
+    font-style: italic;
+    color: #373fff;
+  }
+  
+  .btn {
+    margin: 8px;
+  }
+  
+  .custom-nav{
+    border-right: solid;
+    margin: 1em;
+  }
+  
+  .img-container{
+    height: 199px;
+    width: 616px;
+    padding: 2em;
+  }
+  
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
