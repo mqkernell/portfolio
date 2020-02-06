@@ -35,11 +35,11 @@ let projects = [
       "recognition": "",
       "images": [
         {
-          "src": "photo1.png",
+          "src": "bird1.jpeg",
           "alt": "alt title"
         },
         {
-          "src": "",
+          "src": "bird2.jpeg",
           "alt": ""
         }
       ]
@@ -105,6 +105,28 @@ let projects = [
         },
         {
           "src": "",
+          "alt": ""
+        }
+      ]
+    },
+
+    {
+      "name": "unnatural nature",
+      "image_base": "nhm",
+      "medium": "photography",
+      "tags": [
+        "manufactured-wilderness",
+      ],
+      "date": "2019",
+      "recognition": "",
+      "images": [
+        {
+          "is_cover": true,
+          "src": "nhm_1.jpeg",
+          "alt": "alt title"
+        },
+        {
+          "src": "nhm_2.jpeg",
           "alt": ""
         }
       ]
