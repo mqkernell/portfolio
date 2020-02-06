@@ -131,7 +131,7 @@ let projects = [
           "alt": ""
         }
       ]
-    }
+    },
 
     {
       "name": "pruitt igoe",

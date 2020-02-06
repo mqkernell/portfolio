@@ -244,8 +244,10 @@ function filterImages() {
         let shouldBeActive = projectShouldBeActive($project.data(), activeFilters); 
         if(shouldBeActive) {
             $project.addClass('active'); 
+            $project.css('order', -1);
         } else {
             $project.removeClass('active'); 
+            $project.css('order', 0);
         }
     })
 }
