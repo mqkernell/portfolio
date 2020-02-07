@@ -9,12 +9,23 @@ html, body {
   height: 100%;
 }
 
+.content-container {
+  height: 100%;
+}
+
 .flex-1 {
   flex: 1 1 auto
 }
 
+
+.color-green {
+  color:rgb(57, 90, 53);
+}
 .background-green {
   background:rgb(57, 90, 53);
+}
+.background-grey {
+  background: #EBEBEB;
 }
 
 h1 {
@@ -25,6 +36,12 @@ h1 {
 .custom-nav{
   border-right: solid;
   margin: 1em;
+}
+
+.close-button {
+  position: fixed;
+  top: 0;
+  right: 0;
 }
 
 img {
@@ -51,35 +68,34 @@ img {
   transform: translate(-50%, -50%)
 }
 
-.projects-section {
-  background: rgba(0, 0, 0, 0.08);
-}
-
-.buttons-section {
-  background: rgb(57, 90, 53);
-}
-
 .project-container {
   opacity: 0.5;
-  transition: opacity 333ms ease; 
+  transition: opacity 333ms ease, transform 150ms ease; 
+  transform: scale(0.3); 
 }
 .project-container.active {
   opacity: 1;
+  transform: scale(1);
+}
+.project-container > .cover-image {
+  transition: transform 333ms ease;
+}
+.project-container:hover > .cover-image {
+  transform: scale(1.01);
 }
 
 .project-detail {
-  /* position: fixed;
-  top: 0;
-  width: 100%; */
   border-top: 2px solid rgb(57, 90, 53);
   opacity: 0;
   pointer-events: none;
-  background: white;
-  transition: opacity 333ms ease; 
+  transition: opacity 333ms ease;
   display: flex;
 }
 .project-detail.active {
   opacity: 1;
   z-index: 10;
   pointer-events: all;
+}
+.project-images {
+  padding-bottom: 10rem!important;
 }

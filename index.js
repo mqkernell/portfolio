@@ -18,11 +18,10 @@ $().ready(main);
 
 function main() {
     let overlayController = new OverlayController(); 
+    let filterController  = new FilterController(); 
 
-    console.log(this.overlayController)
-    addFilterButtons(buttonCategories); 
-    
-    
+    filterController.addFilterButtons(buttonCategories); 
+
     /**
      *  Add Projects
      */
@@ -65,6 +64,25 @@ function main() {
     });
 }
 
+/**
+ * 
+ */
+function getProjectTags(project) {
+    let tagsObject = {};  
+    for (let category in buttonCategories) {
+        if (project[category]) {
+            let type = typeof(project[category]);
+            if(type === 'string') {
+                tagsObject[category] = [project[category]];
+            }
+            else {
+                tagsObject[category] = project[category];
+            }
+        }
+    }
+    return tagsObject; 
+}
+
 
 /**
  * 
@@ -82,12 +100,15 @@ function OverlayController() {
     this.$descriptionEl = $('#detail-description');
     let $closeButton    = $('#detail-close-button');
 
+    $(document).keyup(function(e) {
+        self.hide();
+    });
+
     // Hide
     $closeButton.click(function() {
         self.hide();
     });   
 }
-
 
 /**
  * 
@@ -95,17 +116,19 @@ function OverlayController() {
 OverlayController.prototype.openProject = function(project) {
     this.clear();  
     this.$project = $(project);
-    
+    this.$imagesEl.append($('<h6>', {class: 'color-green'}).text('medium/ ' + project.medium));
+    this.$imagesEl.append($('<h6>', {class: 'color-green'}).text('tags/ ' + project.tags.join(', ')));
     // Add images
     if(project.image_base && projectImages[project.image_base]) {
         
         let imagesData = projectImages[project.image_base]
         imagesData.forEach(imgData => {
             // console.log(new ResponsiveImg(imgData));
-            this.$imagesEl.append(new ResponsiveImg(imgData, {class: 'detail-image'}))
+            this.$imagesEl.append(
+                new ResponsiveImg(imgData, {class: 'detail-image my-4'})
+            )
         })
     }
-
     // Add project description
     this.$titleEl.text(project.name); 
     this.$descriptionEl.text(project.description);
@@ -148,44 +171,26 @@ OverlayController.prototype.hide = function() {
  */
 function FilterController() {
     let self = this; 
+    this.$buttonsSection = $('#buttons');
 
+    $(document).keyup(function(e) {
+        self.clear();
+        self.applyFiltersToImages();
+    });
 }
 
-FilterController.prototype.clearFilters = function() {
-    activeFilters = {};
-}
 
 /**
  * 
  */
-function getProjectTags(project) {
-    let tagsObject = {};  
-    for (let category in buttonCategories) {
-        if (project[category]) {
-            let type = typeof(project[category]);
-            if(type === 'string') {
-                tagsObject[category] = [project[category]];
-            }
-            else {
-                tagsObject[category] = project[category];
-            }
-        }
-    }
-    return tagsObject; 
-}
+FilterController.prototype.addFilterButtons = function(buttonCategories) {
+    let self = this; 
 
-/**
- * 
- */
-function addFilterButtons(buttonCategories) {
-    let $buttonsSection = $('#buttons');
-
+    // Build array of filters per button category
     for (let category in buttonCategories) {
         projects.forEach(function (project) {
-            // If the project has the section field defined (eg. project[date]), add that button
             if (project[category]) {
                 let type = typeof (project[category]);
-
                 if (type === 'string') {
                     buttonCategories[category].push(project[category]);
                 }
@@ -198,13 +203,15 @@ function addFilterButtons(buttonCategories) {
         })
     }
 
+    this.filterButtonData = buttonCategories; 
+
+    // Build buttons based on the categories
     for (let category in buttonCategories) {
         $buttonSection = $('<div>', {
             class: 'px-3 py-1 my-3' + ' ' + category,
             role: 'group',
             id: category,
         });
-
         unique(buttonCategories[category]).forEach(value => {
             $buttonSection.append($('<button>', {
                 class: 'filter-button btn btn-outline-light mr-2 mb-2',
@@ -212,54 +219,58 @@ function addFilterButtons(buttonCategories) {
                 name: value,
                 click: function() {
                     let $this = $(this);
-                    onFilterButtonClick(value, category, !$this.hasClass('active'));
+                    self.updateFilters(value, category, !$this.hasClass('active'));
+                    self.applyFiltersToImages(); 
                     $this.toggleClass('active'); 
                 }, 
             }).text(value));
-
         });
-        
-        $buttonsSection.append($buttonSection);
+        this.$buttonsSection.append($buttonSection);
     }
 }
 
 /**
  * 
  */
-function onFilterButtonClick(value, category, isBecomingActive) {
-    // Add to active filters
+FilterController.prototype.updateFilters = function(value, category, isBecomingActive) {
+    // $('#projects').animate({
+    //     scrollTop: $(this).offset().top
+    //   }, 1000);
+
+    let prevActiveFilters   = activeFilters[category];
+
+    // Either add or remove from active filters
     if(isBecomingActive) {
-        let prevActiveFilters   = activeFilters[category];
         prevActiveFilters.push(value); 
         activeFilters[category] = unique(prevActiveFilters);
-        filterImages();
     } 
-    // Remove from active filters
     else {
-        let prevActiveFilters   = activeFilters[category];
-        let newActiveFilters    = $.grep(prevActiveFilters, function(val) {
+        let newActiveFilters = $.grep(prevActiveFilters, function(val) {
             return val != value;
         });
         activeFilters[category] = unique(newActiveFilters);
-        filterImages();
     }
+    console.log(activeFilters)
 }
-
 
 /**
  * 
  */
-function filterImages() {
+FilterController.prototype.applyFiltersToImages = function() {
+
+    let self = this; 
     let $projectSection = $('#projects');
     $projectSection.children('.project-container').get().forEach(project => {
         $project = $(project); 
-        let shouldBeActive = projectShouldBeActive($project.data(), activeFilters); 
+
+        
+        let shouldBeActive = self.projectShouldBeActive($project.data(), activeFilters); 
         if(shouldBeActive) {
             $project.addClass('active'); 
-            $project.css('order', -1);
+            // $project.css('order', -1);
         } else {
             $project.removeClass('active'); 
-            $project.css('order', 0);
+            // $project.css('order', 0);
         }
     })
 }
@@ -267,7 +278,7 @@ function filterImages() {
 /**
  * 
  */
-function projectShouldBeActive(projectFilters, activeFilters) {
+FilterController.prototype.projectShouldBeActive = function(projectFilters, activeFilters) {
     let active = true; 
     for(let cat in activeFilters) {
         activeFilters[cat].forEach(function(val) {
@@ -281,6 +292,16 @@ function projectShouldBeActive(projectFilters, activeFilters) {
     return active; 
 }
 
+/**
+ * 
+ */
+FilterController.prototype.clear = function() {
+    $('.filter-button').removeClass('active');
+    activeFilters = {}
+    for(var cat in buttonCategories) {
+        activeFilters[cat] = []; 
+    }
+}
 
 /**
  * 
@@ -290,7 +311,6 @@ function unique(array) {
         return index === $.inArray(el, array);
     });
 }
-
 
 
 /**

@@ -44,31 +44,31 @@
           <a class="nav-link" href="./connect.html">CONNECT</a>
         </nav>
       </div>
-      <div class="row flex-1 d-flex">
-        <section class="buttons-section  container-fluid col-md-3 p-2 py-3 flex-1 " id="buttons"></section>
-        <section class="projects-section container-fluid col-md-9 p-2 py-3 d-flex flex-1 flex-wrap" id="projects"></section>
+      <div class="row flex-1 d-flex overflow-hidden h-100">
+        <section 
+          class="buttons-section background-green container-fluid col-md-3 p-2 py-3 flex-1 " 
+          id="buttons">
+        </section>
+        <section 
+          class="projects-section background-grey container-fluid col-md-9 p-4 d-flex flex-1 flex-wrap overflow-auto h-100" 
+          id="projects">
+        </section>
   
-        <section class="project-detail position-fixed" id="project-detail-container">
-          <div class="container-fluid">
-            <div class="row">
-              <button 
-                type="button" 
-                class="close-button btn-primary btn-bg position-fixed fixed-top m-3 p-2 float-right" 
-                aria-label="Close"
-                id='detail-close-button'
-              >  
-                <span aria-hidden="true">&times;</span>
-              </button>
+        <section class="project-detail background-grey position-fixed container-fluid h-100" id="project-detail-container">
+          <button 
+            type="button" 
+            class="close-button h2 btn-primary btn-bg m-3 p-2" 
+            aria-label="Close"
+            id='detail-close-button'
+          >  
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="row h-100 overflow-hidden">
+            <div class="col-md-3 p-4">
+              <h1 id='detail-title'></h1>
+              <p class="project-description" id="detail-description"></p>
             </div>
-            <div class="row">
-              <div class="col-md-3 p-4">
-                <h1 id='detail-title'></h1>
-                <p class="project-description" id="detail-description"></p>
-              </div>
-              <div class="col-md-9 p-4">
-                <div class="project-images" id="detail-images"></div>
-              </div>
-            </div>
+            <div class="project-images col-md-9 pl-4 pr-5 pt-5 h-100 overflow-auto" id="detail-images"></div>
           </div>
         </section>
       </div>
