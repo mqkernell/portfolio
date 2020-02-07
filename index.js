@@ -155,6 +155,13 @@ OverlayController.prototype.show = function() {
  * 
  */
 OverlayController.prototype.hide = function() {
+    let self = this; 
+    setTimeout(function() {
+        console.log(self);
+        self.$containerEl.animate({
+            scrollTop: 0
+        }, 0); 
+    }, 333);
     this.$containerEl.removeClass('active');
 }
 
@@ -178,7 +185,6 @@ function FilterController() {
         self.applyFiltersToImages();
     });
 }
-
 
 /**
  * 
