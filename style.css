@@ -1,88 +1,85 @@
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
 }
 
-body {
-    font-family: helvetica, arial, sans-serif;
-    margin: 2em;
-    padding-top: 2em;
-  }
-  
-  h1 {
-    font-style: italic;
-    color: #373fff;
-  }
-  
-  .btn {
-    margin: 8px;
-  }
-  
-  .custom-nav{
-    border-right: solid;
-    margin: 1em;
-  }
-  
-  .img-container{
-    height: 199px;
-    width: 616px;
-    padding: 2em;
-  }
-  
-  img {
-    max-width: 100%;
-    max-height: 100%;
-  }
-  
-  .main-section {
-    overflow-y: scroll; 
-    height: 100%;
-  }
+html, body {
+  height: 100%;
+}
 
-  .projects-section {
-    padding: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    background: rgba(0, 0, 0, 0.08)
-  }
-  .buttons-section {
-    background: rgba(233, 145, 145, 0.08)
+.flex-1 {
+  flex: 1 1 auto
+}
 
-  }
+.background-green {
+  background:rgb(57, 90, 53);
+}
 
-  .project-container {
-    width: 49%;
-    padding: 1rem;
-    opacity: 0.5;
-    transition: opacity 333ms ease; 
-  }
-  .project-container.active {
-    opacity: 1;
-  }
+h1 {
+  font-style: italic;
+  color:rgb(57, 90, 53);
+}
 
-  .project-detail {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: scroll;
-    opacity: 0;
-    pointer-events: none;
-    background: white;
-    transition: opacity 333ms ease; 
-    display: flex;
-  }
-  .project-detail.active {
-    opacity: 1;
-    z-index: 10;
-    pointer-events: all;
-  }
+.custom-nav{
+  border-right: solid;
+  margin: 1em;
+}
 
-  .close-button {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-  }
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.responsive-img {
+  background: rgb(57, 90, 53);
+}
+.placeholder-img {
+  width: 100%;
+  height: 100%;
+  color: rgba(0, 0, 0, 0.15);
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+.placeholder-img::after {
+  content: "No Image";
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+
+.projects-section {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.buttons-section {
+  background: rgb(57, 90, 53);
+}
+
+.project-container {
+  opacity: 0.5;
+  transition: opacity 333ms ease; 
+}
+.project-container.active {
+  opacity: 1;
+}
+
+.project-detail {
+  /* position: fixed;
+  top: 0;
+  width: 100%; */
+  border-top: 2px solid rgb(57, 90, 53);
+  opacity: 0;
+  pointer-events: none;
+  background: white;
+  transition: opacity 333ms ease; 
+  display: flex;
+}
+.project-detail.active {
+  opacity: 1;
+  z-index: 10;
+  pointer-events: all;
+}

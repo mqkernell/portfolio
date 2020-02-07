@@ -3,7 +3,7 @@
 // Quinn Website
 //
 //
-
+console.log(projectImages);
 var buttonCategories = {
     'medium': [],
     'tags': [],
@@ -14,9 +14,9 @@ for(var cat in buttonCategories) {
     activeFilters[cat] = []; 
 }
 
-$().ready(Main);
+$().ready(main);
 
-function Main() {
+function main() {
     let overlayController = new OverlayController(); 
 
     console.log(this.overlayController)
@@ -29,8 +29,9 @@ function Main() {
     let $projectSection = $('#projects');
     
     projects.forEach(function(project) {
-        let $projectContainer = $('<div>', {
-            class: "project-container active",
+        let $projectContainer = $('<a>', {
+            href: "#" + encodeURI(project.name),
+            class: "project-container p-2 w-50 active",
             data: getProjectTags(project)
         });
         
@@ -42,12 +43,23 @@ function Main() {
             return img.is_cover
         })[0];
 
+        // If there is a cover img in data, add it
         if(coverImage) {
             $projectContainer.append($('<img />', { 
                 class: "cover-image", 
                 src: './assets/' + project.image_base + "/" + coverImage.src,
                 alt: project.alt || '', 
             })); 
+        } 
+        // Else pick the first from the transformed images
+        else if(projectImages && projectImages[project.image_base] && projectImages[project.image_base][0]) {
+            $projectContainer.append(new ResponsiveImg(projectImages[project.image_base][0], {class: 'cover-image'}))
+        }
+        // Else add a default image
+        else {
+            $projectContainer.append($('<div />', { 
+                class: "cover-image placeholder-img", 
+            }));
         }
         $projectSection.append($projectContainer); 
     });
@@ -85,13 +97,14 @@ OverlayController.prototype.openProject = function(project) {
     this.$project = $(project);
     
     // Add images
-    project.images.forEach(img => {
-        this.$imagesEl.append($('<img />', { 
-            class: "detail-image", 
-            src: './assets/' + project.image_base + "/" + img.src,
-            alt: img.alt || '', 
-        })); 
-    })
+    if(project.image_base && projectImages[project.image_base]) {
+        
+        let imagesData = projectImages[project.image_base]
+        imagesData.forEach(imgData => {
+            // console.log(new ResponsiveImg(imgData));
+            this.$imagesEl.append(new ResponsiveImg(imgData, {class: 'detail-image'}))
+        })
+    }
 
     // Add project description
     this.$titleEl.text(project.name); 
@@ -187,14 +200,14 @@ function addFilterButtons(buttonCategories) {
 
     for (let category in buttonCategories) {
         $buttonSection = $('<div>', {
-            class: 'button-section ' + category,
+            class: 'px-3 py-1 my-3' + ' ' + category,
+            role: 'group',
             id: category,
         });
 
         unique(buttonCategories[category]).forEach(value => {
             $buttonSection.append($('<button>', {
-                class: 'filter-button btn-default btn-m',
-                id: '',
+                class: 'filter-button btn btn-outline-light mr-2 mb-2',
                 value: value,
                 name: value,
                 click: function() {
@@ -207,7 +220,6 @@ function addFilterButtons(buttonCategories) {
         });
         
         $buttonsSection.append($buttonSection);
-        $buttonsSection.append('<br>')            
     }
 }
 
@@ -277,4 +289,43 @@ function unique(array) {
     return $.grep(array, function(el, index) {
         return index === $.inArray(el, array);
     });
+}
+
+
+
+/**
+ * 
+ ******************************************************
+ * 
+ *  Responsive Image
+ * 
+ * 
+ */
+function ResponsiveImg(imgData, opts) {
+    let self        = this; 
+    let thumbSrc    = imgData.thumb;
+    let fallbackSrc = imgData.src;
+    let alt         = imgData.alt;
+    let srcset      = imgData.srcset;
+    let _class      = opts && opts.class; 
+
+    $imgContainer = $('<div>', {
+        class: 'responsive-image-container ' + _class,
+    });
+
+    $img = $('<img>', {
+        class: 'img-responsive', 
+        src: fallbackSrc, 
+        srcset: srcset, 
+        alt: alt || '', 
+    })
+    
+    // if(thumbSrc) {
+    //     $thumb = $('<img>', {
+    //         class: 'thumb-img', 
+    //         src: imgData.thumb,
+    //     });
+    // } 
+    $imgContainer.append($img); 
+    return $imgContainer; 
 }

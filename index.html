@@ -5,43 +5,74 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
 
     <!-- import the webpage's stylesheet -->
     <link rel="stylesheet" href="./style.css" />
     <link
       rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     />
+
+     <!-- OG Meta -->
+     <meta property="og:title" content="Quinn Kernell's Portfolio">
+     <meta property="og:description" content="A portfolio site for Quinn Kernell, full of cool stuff.">
+     <!-- <meta property="og:image" content="<%= BASE_URL %>button-cover.png"> -->
+     <!-- <meta property="og:url" content="http://lucasbuilds.site"> -->
+ 
+     <!-- Favicon Meta -->
+     <!-- <link rel="apple-touch-icon" sizes="180x180" href="<%= BASE_URL %>apple-touch-icon.png">
+     <link rel="icon" type="image/png" sizes="32x32" href="<%= BASE_URL %>favicon-32x32.png">
+     <link rel="icon" type="image/png" sizes="16x16" href="<%= BASE_URL %>favicon-16x16.png">
+     <link rel="manifest" href="<%= BASE_URL %>site.webmanifest">
+     <meta name="msapplication-TileColor" content="#2b5797">
+     <meta name="theme-color" content="#ffffff"> -->
 
     <!-- import the webpage's javascript file -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="./data.js"></script>
+    <script src="./project-images.js"></script>
     <script src="./index.js"></script>
   </head>
   <body>
     <!--sidebar-->
-    <div class="container-fluid">
+    <div class="content-container container-fluid d-flex flex-column">
       <div class="row">
-        <nav class="navbar-custom">
-          <div class="container-fluid">
-            <ul class="nav navbar-nav">
-              <li><a href="./index.html">HOME</a></li>
-              <li><a href="./about.html">ABOUT</a></li>
-              <li><a href="./connect.html">CONNECT</a></li>
-            </ul>
-          </div>
+        <nav class="nav p-2 py-3">
+          <a class="nav-link active" href="./index.html">M.Q.K.</a>
+          <a class="nav-link" href="./about.html">ABOUT</a>
+          <a class="nav-link" href="./connect.html">CONNECT</a>
         </nav>
-
-        <section class="buttons-section main-section custom-nav col-sm-3 sidenav"  id="buttons"></section>
-
-        <section class="projects-section main-section col-bg-3" id="projects"></section>
-
-        <section class="project-detail" id="project-detail-container">
-          <button class="close-button" id='detail-close-button'>X</button>
-          <h1 id='detail-title'></h1>
-          <div class="project-images" id="detail-images"></div>
-          <div class="project-description" id="detail-description"></div>
+      </div>
+      <div class="row flex-1 d-flex">
+        <section class="buttons-section  container-fluid col-md-3 p-2 py-3 flex-1 " id="buttons"></section>
+        <section class="projects-section container-fluid col-md-9 p-2 py-3 d-flex flex-1 flex-wrap" id="projects"></section>
+  
+        <section class="project-detail position-fixed" id="project-detail-container">
+          <div class="container-fluid">
+            <div class="row">
+              <button 
+                type="button" 
+                class="close-button btn-primary btn-bg position-fixed fixed-top m-3 p-2 float-right" 
+                aria-label="Close"
+                id='detail-close-button'
+              >  
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="row">
+              <div class="col-md-3 p-4">
+                <h1 id='detail-title'></h1>
+                <p class="project-description" id="detail-description"></p>
+              </div>
+              <div class="col-md-9 p-4">
+                <div class="project-images" id="detail-images"></div>
+              </div>
+            </div>
+          </div>
         </section>
+      </div>
+
       </div>
     </div>
 
